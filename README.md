@@ -1,34 +1,17 @@
 # Quickstart
 Quick start for dApps project
 
-# Set up
-
-1. Clone quickstart
-
+# Set up project
 ```
-git clone https://github.com/ookimaki/quickstart.git
-```
-
-2. Change directory
-
-```
-cd quickstart
-```
-
-3. npm install
-```
+git clone https://github.com/ookimaki/ethereum_dapps_quickstart.git
+cd ethereum_dapps_quickstart
 npm install
 ```
 
-4. Set mnemonic & infura_access_token file
-```
-Put your mnemonic here
-Put your infura access token here
-```
-
-5. Migrate
+# Replace mnemonic & infura_access_token file
 
 
+# Migrate
    - Ropsten
 ```
 truffle migrate --network ropsten
