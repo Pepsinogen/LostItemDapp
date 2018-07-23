@@ -1,0 +1,27 @@
+{
+  "name": "ethereum_dapps_quickstart",
+  "version": "1.0.0",
+  "description": "Quick start for dApps project",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ookimaki/ethereum_dapps_quickstart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/ookimaki/ethereum_dapps_quickstart/issues"
+  },
+  "homepage": "https://github.com/ookimaki/ethereum_dapps_quickstart#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "truffle-hdwallet-provider": "0.0.5"
+  }
+}
