@@ -1,7 +1,6 @@
 # Quickstart
 Quick start for dApps project
 
-
 # Set up
 
 1. Clone quickstart
@@ -28,23 +27,22 @@ Put your infura access token here
 ```
 
 5. Migrate
-
-Ropsten
+   - Ropsten
 ```
 truffle migrate --network ropsten
 ```
 
-Rinkeby
+   - Rinkeby
 ```
 truffle migrate --network rinkeby
 ```
 
-Mainnet
+   - Mainnet
 ```
 truffle migrate --network live
 ```
 
-Use truffle.cmd instead of truffle for Windows OS
+   - Use truffle.cmd instead of truffle for Windows OS
 ```
 truffle.cmd migrate
 ```
