@@ -27,6 +27,8 @@ Put your infura access token here
 ```
 
 5. Migrate
+
+
    - Ropsten
 ```
 truffle migrate --network ropsten
