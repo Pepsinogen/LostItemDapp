@@ -14,7 +14,7 @@ npm install
 Replace mnemonic file "Put your mnemonic here" to your mnemonic
 
    ## infura_access_token
-Replace infura_access_token file "Put your infura access token here" to your infura access token here
+Replace infura_access_token file "Put your infura access token here" to your infura access token
 
 # Migrate
    - Ropsten
