@@ -11,7 +11,7 @@ module.exports = {
     //This is for migrating to ganache private chain
     development: {
       host: "127.0.0.1",
-      port: 8545,     
+      port: 7545,     
       network_id: "*" // Match any network id
     },
     
@@ -35,6 +35,8 @@ module.exports = {
           "https://ropsten.infura.io/" + accessToken
         );
       },
+      //Ropsten gas limit is 4700000 (Truffle default gas limit is 4712388).
+      gas:4700000,
       network_id: 3
     },   
 
