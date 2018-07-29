@@ -1,7 +1,7 @@
 var { readFileSync } = require('fs')
 var HDWalletProvider = require("truffle-hdwallet-provider");
 
-var mnemonic = readFileSync('./mnemonic', 'utf-8');
+var mnemonic = readFileSync('./mnemonic', 'utf-8').replace(/\r?\n/g,"");
 var accessToken = readFileSync('./infura_access_token', 'utf-8');
 
 module.exports = {
@@ -11,10 +11,10 @@ module.exports = {
     //This is for migrating to ganache private chain
     development: {
       host: "127.0.0.1",
-      port: 7545,     
+      port: 7545,
       network_id: "*" // Match any network id
     },
-    
+
     //This is for migrating to mainnet
     live: {
       provider: function() {
@@ -26,7 +26,7 @@ module.exports = {
       //It is recommend to set gasPrice (in wei)
       gasPrice: 10000000000, //ex. 10 gwei = 10000000000
       network_id: 1
-    }, 
+    },
 
     ropsten: {
       provider: function() {
@@ -38,7 +38,7 @@ module.exports = {
       //Ropsten gas limit is 4700000 (Truffle default gas limit is 4712388).
       gas:4700000,
       network_id: 3
-    },   
+    },
 
     rinkeby: {
       provider: function() {
@@ -48,7 +48,7 @@ module.exports = {
         );
       },
       network_id: 4
-    } 
+    }
 
   }
 }
