@@ -1,38 +1,12 @@
-# Quickstart
-Quick start for dApps project
+# おとしもの
 
-# Set up project
-```
-git clone https://github.com/ookimaki/ethereum_dapps_quickstart.git
-cd ethereum_dapps_quickstart
-npm install
-```
+## 概要
+- 落し物を拾った人は落し物を登録できる
+- 落し物をした人は落し物を探すことができる
+- 落し物をした人は拾った人に謝礼とともに引き取り申請ができる
 
-# Replace mnemonic & infura_access_token file
-
-   ## mnemonic
-Replace mnemonic file "Put your mnemonic here" to your mnemonic
-
-   ## infura_access_token
-Replace infura_access_token file "Put your infura access token here" to your infura access token
-
-# Migrate
-   - Ropsten
-```
-truffle migrate --network ropsten
-```
-
-   - Rinkeby
-```
-truffle migrate --network rinkeby
-```
-
-   - Mainnet
-```
-truffle migrate --network live
-```
-
-   - Use truffle.cmd instead of truffle for Windows OS
-```
-truffle.cmd migrate
-```
+## メリット
+- 拾い主が特定される
+- 落とし主が特定される
+- 記録が公開されるので拾い主と落とし主の確認作業を簡素化できる
+- 謝礼が渡しやすい
