@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="./favicon.ico">
+    
+  <title>おとしもの　登録</title>
+
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="./js/web3.min.js"></script>
+  <script language="javascript" type="text/javascript" src="./js/contract_abi.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body style="font-family: 'Open Sans', sans-serif;">
+  <div class="container">
+    <div class="centered title"><h1>おとしもの新規登録</h1></div>
+  </div>
+  <hr class="featurette-divider"></hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="tab-content">
+          <div id="stripe" class="tab-pane fade in active">
+            <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
+            <div class='form-row'>
+              <div class='form-group required'>
+                <div class='error form-group hide'>
+                  <div class='alert-danger alert'>
+                    Please correct the errors and try again.
+                  </div>
+                </div>
+                <div class='form-group card required'>
+                  <label class='control-label'>タイトル</label>
+                  <input class='form-control' size='4' type='text' id="name"/>
+                </div>
+              </div>
+            </div>
+            <div class='form-row'>
+              <div class='form-group card required'>
+                <label class='control-label'>コメント</label>
+                <input autocomplete='off' class='form-control card-number' type='text' id="comment">
+              </div>
+            </div>
+            <br>
+            <button class='form-control btn btn-primary submit-button' onClick="add()"> 新規登録 →</button>
+            <br/><br/>
+            <a class="btn btn-danger btn-lg" href="index.html" role="button">戻る</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <label class='control-label'></label><!-- spacing -->   
+        <div class="alert alert-info">おとしものを登録するときは時間や場所を明記すると持ち主が見つけやすくなります。</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var contract;
+    var userAccount;
+
+    function startApp() {
+      //Replace "YOUR_CONTRACT_ADDRESS" with your contract address
+      var contractAddress = "0x1385cc7b4dc3863dfecaac8a8b92fb2e7c2c8f7e";
+      contract = new web3js.eth.Contract(contractABI, contractAddress);
+
+      var accountInterval = setInterval(function () {
+        web3.eth.getAccounts((error, accounts) => {
+          if (accounts[0] !== userAccount) {
+            userAccount = accounts[0];
+          }
+        });
+      }, 100);
+    }
+
+    window.addEventListener('load', function () {
+      // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+      if (typeof web3 !== 'undefined') {
+        // Use Mist/MetaMask's provider
+        web3js = new Web3(web3.currentProvider);
+      } else {
+        // Handle the case where the user doesn't have Metamask installed
+        // Probably show them a message prompting them to install Metamask
+      }
+      // Now you can start your app & access web3 freely:
+      startApp()
+    })
+
+    function add() {
+      var _name = document.getElementById("name").value;
+      var _comment = document.getElementById("comment").value;
+      var _timestamp =  Math.round((new Date()).getTime() / 1000);
+      contract.methods.mint(_name, _comment, _timestamp)
+        .send({ from: userAccount, value: 0 })
+        .on("transactionHash", function (txhash) {
+          alert("登録されました！\nTxhash: " +  txhash);
+        })
+        .on("receipt", function (receipt) {
+          //Process when transaction is confirmed
+          console.log(receipt)
+        })
+        .on("error", function (error) {
+          //Process when transaction is failed
+           console.log(error)
+        });
+    };
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

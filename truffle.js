@@ -32,11 +32,11 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(
           mnemonic,
-          "https://ropsten.infura.io/" + accessToken
+          "https://ropsten.infura.io/V3/" + accessToken
         );
       },
       //Ropsten gas limit is 4700000 (Truffle default gas limit is 4712388).
-      gas:4700000,
+      gas: 4700000,
       network_id: 3
     },
 

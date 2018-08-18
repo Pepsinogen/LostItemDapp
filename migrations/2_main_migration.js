@@ -1,5 +1,5 @@
-var SimpleStore = artifacts.require("./SimpleStore.sol");
+var LostItemToken = artifacts.require("./LostItemToken.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(SimpleStore);
+  deployer.deploy(LostItemToken);
 };

@@ -22,6 +22,8 @@
   "homepage": "https://github.com/ookimaki/ethereum_dapps_quickstart#readme",
   "dependencies": {
     "fs": "0.0.1-security",
-    "truffle-hdwallet-provider": "0.0.5"
+    "openzeppelin-solidity": "^1.12.0",
+    "truffle-hdwallet-provider": "0.0.5",
+    "zeppelin-solidity": "^1.12.0"
   }
 }

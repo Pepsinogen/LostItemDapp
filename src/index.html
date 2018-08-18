@@ -1,96 +1,159 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Ethereum dApps QuickStart</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./favicon.ico">
+
+    <title>おとしもの</title>
+
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="./js/web3.min.js"></script>
     <script language="javascript" type="text/javascript" src="./js/contract_abi.js"></script>
-</head>
 
-<body>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <h1>Ethereum dApps QuickStart</h1>
-    This is simple dApps template
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <h2>Preparation</h2>
-    1. Replace contractAddress to your contract address.</br>
-    => "index.html" var contractAddress = "YOUR_CONTRACT_ADDRESS"</br>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
 
-    2. Replace contract_abi to your contract ABI.</br>
-    => "js/contract_abi.js" var contractABI = []</br>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">おとしもの</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" onclick="alert('すみません、この機能は未実装です。')">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </nav>
 
-    <h2>How to use</h2>
-    1. Connect Metamask. <br>
-    2. Input text in textbox. <br>
-    3. Click Set to set text in contract. <br>
-    4. Wait transaction is confirmed. <br>
-    5. Click Get to get text from contract.<br>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>おとしもの</h1>
+        <p>あなたが拾ったおとしものの持ち主、あなたがおとしたものの拾い主が見つかります。</p>
+        <p><a class="btn btn-primary btn-lg" href="register.html" role="button">おとしもの新規登録 &raquo;</a>
+      </div>
+    </div>
 
-    <h2></h2>
-    <input type="text" id="num">
-    <input type="button" value="Set" onClick="set()">
-    <input type="button" value="Get" onClick="get()">
+    <div class="container">
+      <p>
+        <button class='form-control btn btn-primary submit-button' onClick="listItems()">更新</button>
+      </p>
+
+      <div class="row">
+        <div id="lostItemList"></div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; 2018 Avocado & Keita</p>
+      </footer>
+    </div><!-- /container -->
 
     <script>
-        var contract;
-        var userAccount;
+      var contract;
+      var userAccount;
 
-        function startApp() {
-            //Replace "YOUR_CONTRACT_ADDRESS" with your contract address  
-            var contractAddress = "YOUR_CONTRACT_ADDRESS";
-            contract = new web3js.eth.Contract(contractABI, contractAddress);
+      function startApp() {
+        //Replace "YOUR_CONTRACT_ADDRESS" with your contract address  
+        var contractAddress = "0x1385cc7b4dc3863dfecaac8a8b92fb2e7c2c8f7e";
+        contract = new web3js.eth.Contract(contractABI, contractAddress);
 
-            var accountInterval = setInterval(function () {
-                web3.eth.getAccounts((error, accounts) => {
-                    if (accounts[0] !== userAccount) {
-                        userAccount = accounts[0];
-
-                    }
-                });
-            }, 100);
-
-        }
-
-        window.addEventListener('load', function () {
-            // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-            if (typeof web3 !== 'undefined') {
-                // Use Mist/MetaMask's provider
-                web3js = new Web3(web3.currentProvider);
-            } else {
-                // Handle the case where the user doesn't have Metamask installed
-                // Probably show them a message prompting them to install Metamask
+        var accountInterval = setInterval(function () {
+          web3.eth.getAccounts((error, accounts) => {
+            if (accounts[0] !== userAccount) {
+              userAccount = accounts[0];
             }
-            // Now you can start your app & access web3 freely:
-            startApp()
-        })
+          });
+        }, 100);
+      }
 
-
-        function set() {
-            var _num = document.getElementById("num").value;
-            contract.methods.set(_num)
-                .send({ from: userAccount })
-                .on("transactionHash", function (txhash) {
-                    alert("Txhash: " +  txhash);
-                })
-                .on("receipt", function (receipt) {
-                    //Process when transaction is confirmed
-                    console.log(receipt)
-                })
-                .on("error", function (error) {
-                    //Process when transaction is failed
-                    console.log(error)
-                });
+      window.addEventListener('load', function () {
+        // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+        if (typeof web3 !== 'undefined') {
+          // Use Mist/MetaMask's provider
+          web3js = new Web3(web3.currentProvider);
+        } else {
+          // Handle the case where the user doesn't have Metamask installed
+          // Probably show them a message prompting them to install Metamask
         }
+        // Now you can start your app & access web3 freely:
+        startApp()
+      })
 
-        function get() {
-            contract.methods.get().call().then(function(_val){
-                alert(_val);      
+      function listItems() {
+        contract.methods.getAllTokens().call().then(function(_tokenIds) {
+          let htmlStr = "";
+          for (let i = 0; i < _tokenIds.length; i++) {
+            console.log(_tokenIds[i]);
+            contract.methods.getLostItem(_tokenIds[i]).call().then(function(_val) {
+              let name = _val[0];
+              let comment = _val[1];
+              let finder = _val[2];
+              let timestamp = new Date(_val[3] * 1000).toISOString();
+              htmlStr += 
+                "<div class=\"col-md-4\"><h2>" + name + "</h2>" +
+                  "<ul>" +
+                    "<li>コメント: " + comment + "</li>" +
+                    "<li>登録者: " + finder + "</li>" +
+                    "<li>登録日時: " + timestamp + "</li>" +
+                  "</ul>" +
+                  "<button class='btn btn-primary' onClick='getBack(" + _tokenIds[i] + ")'>引き取り</button>" +
+                "</div>";
+              $("#lostItemList").html(htmlStr);
             });
-        }
+          }
+        });
+      }
 
+      function getBack(_tokenId) {
+        contract.methods.getBack(_tokenId)
+          .send({ from: userAccount, value: window.web3.toWei(0.001, 'ether') })
+          .on("transactionHash", function (txhash) {
+          alert("引き取りリクエストが送信されました。\nTxhash: " +  txhash);
+        })
+        .on("receipt", function (receipt) {
+          //Process when transaction is confirmed
+          alert("登録者にお礼が送金されました！\nReceipt: " +  receipt);
+          console.log(receipt)
+        })
+        .on("error", function (error) {
+          //Process when transaction is failed
+          console.log(error)
+        });
+      }
     </script>
 
-</body>
-
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </body>
 </html>
