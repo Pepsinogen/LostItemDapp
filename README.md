@@ -1,5 +1,7 @@
 # おとしもの
 
+スライド資料: https://speakerdeck.com/avcdsld/lost-items-dapp
+
 ## 概要
 - 落し物を拾った人は落し物を登録できる
 - 落し物をした人は落し物を探すことができる
